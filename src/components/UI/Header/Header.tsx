@@ -24,7 +24,7 @@ export const Header = () => {
     <header className="header">
       <div className="header-content">
         <Link to="/">
-          <img src="/logo.svg" alt="logo" className="logo" />
+          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="logo" className="logo" />
         </Link>
 
         {isAuthorized ? (
