@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+public/
+*.config.js
+*.config.ts
+vite.config.ts
+coverage/
+.vscode/
+.git/
+emsdk/
