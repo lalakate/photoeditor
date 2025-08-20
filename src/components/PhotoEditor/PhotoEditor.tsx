@@ -37,22 +37,28 @@ const PhotoEditor: React.FC = () => {
 
   useEffect(() => {
     if (canvasRef.current) {
-      const fabricCanvas = new fabric.Canvas(canvasRef.current, {
-        backgroundColor: '#1e1e1e',
-        width: 800,
-        height: 600,
-      });
-
-      setCanvas(fabricCanvas);
-
-      initWasmFilters().catch(error =>
-        logEvent(analytics, 'wasm_init_error', { error })
-      );
+      // Сначала инициализируем wasm, затем создаём canvas
+      initWasmFilters()
+        .then(() => {
+          if (!canvasRef.current) return;
+          const fabricCanvas = new fabric.Canvas(canvasRef.current, {
+            backgroundColor: '#1e1e1e',
+            width: 800,
+            height: 600,
+          });
+          setCanvas(fabricCanvas);
+        })
+        .catch(error =>
+          logEvent(analytics, 'wasm_init_error', { error })
+        );
 
       return () => {
-        fabricCanvas.dispose();
+        if (canvas) {
+          canvas.dispose();
+        }
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
