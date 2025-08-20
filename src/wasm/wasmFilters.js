@@ -9,7 +9,8 @@ export function initWasmFilters() {
 
   initializationPromise = new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch('/wasm/filters.js');
+      // Используем относительный путь для корректной работы на GitHub Pages
+      const response = await fetch(import.meta.env.BASE_URL + 'wasm/filters.js');
       const jsCode = await response.text();
 
       const script = document.createElement('script');
@@ -29,7 +30,8 @@ export function initWasmFilters() {
       wasmModule = await window.createFiltersModule({
         locateFile: path => {
           if (path.endsWith('.wasm')) {
-            return '/wasm/filters.wasm';
+            // Используем относительный путь для wasm
+            return import.meta.env.BASE_URL + 'wasm/filters.wasm';
           }
           return path;
         },
@@ -40,7 +42,6 @@ export function initWasmFilters() {
       } catch (error) {
         window.createFiltersModule = undefined;
       }
-      document.head.removeChild(script);
 
       isInitialized = true;
       resolve();
