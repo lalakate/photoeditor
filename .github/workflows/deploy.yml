@@ -1,5 +1,5 @@
 name: Deploy to GitHub Pages
-
+# This workflow deploys the project to GitHub Pages whenever there is a push to the main branch.
 on:
   push:
     branches:
