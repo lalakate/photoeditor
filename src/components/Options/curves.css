@@ -1,0 +1,45 @@
+.curve-editor {
+  background-color: #222;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.curve-canvas {
+  width: 256px;
+  height: 256px;
+  background-color: #333;
+  border: 1px solid #444;
+  cursor: crosshair;
+  display: block;
+  margin: 0 auto;
+}
+
+.curve-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 10px;
+}
+
+.reset-curve-button {
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reset-curve-button:hover {
+  background-color: #555;
+}
+
+.curve-help {
+  font-size: 12px;
+  color: #aaa;
+  text-align: right;
+  line-height: 1.3;
+}

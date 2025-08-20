@@ -1,0 +1,181 @@
+.preset-manager {
+  width: 100%;
+  padding: 15px;
+  background-color: #252525;
+  border-radius: 5px;
+  margin-top: 15px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.presets-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.presets-header h3 {
+  margin: 0;
+  color: #e6e6e6;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.add-preset-btn {
+  background-color: #d62a55;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.add-preset-btn:hover {
+  background-color: white;
+  color: #d62a55;
+}
+
+.add-preset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.add-preset-form input {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #e6e6e6;
+  font-size: 14px;
+  width: 100%;
+}
+
+.add-preset-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.save-preset-btn,
+.cancel-preset-btn {
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 13px;
+  border: none;
+}
+
+.save-preset-btn {
+  background-color: #d62a55;
+  color: white;
+}
+
+.save-preset-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.save-preset-btn:not(:disabled):hover {
+  background-color: white;
+  color: #d62a55;
+}
+
+.cancel-preset-btn {
+  background-color: #555;
+  color: #e6e6e6;
+}
+
+.cancel-preset-btn:hover {
+  background-color: #444;
+}
+
+.presets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preset-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #333;
+  border-radius: 4px;
+  min-width: 0;
+}
+
+.preset-info {
+  font-size: 0.7rem;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+}
+
+.preset-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.save-btn,
+.cancel-btn,
+.apply-btn,
+.delete-btn {
+  background-color: #d62a55;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.save-btn:hover,
+.cancel-btn:hover,
+.apply-btn:hover,
+.delete-btn:hover {
+  background-color: white;
+  color: #d62a55;
+}
+
+.no-presets {
+  text-align: center;
+  padding: 20px 0;
+  color: #999;
+}
+
+.no-presets p {
+  margin: 5px 0;
+}
+
+.no-presets-hint {
+  font-size: 12px;
+  color: #777;
+}
+
+.presets-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 0 30px 0;
+}
+
+.preset-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}

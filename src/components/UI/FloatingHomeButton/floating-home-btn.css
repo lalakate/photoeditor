@@ -1,0 +1,30 @@
+.floating-home-btn {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 1000;
+  background: #d62a55;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(214, 42, 85, 0.08);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition:
+    box-shadow 0.2s,
+    background 0.2s;
+}
+.floating-home-btn:hover {
+  background: white;
+  color: #d62a55;
+  box-shadow: 0 4px 24px rgba(214, 42, 85, 0.16);
+  outline: 1.5px solid #d62a55;
+}
+
+.hidden {
+  display: none;
+}
