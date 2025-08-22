@@ -1,12 +1,12 @@
 import React from 'react';
 import './preset-card.css';
-import { CloudPreset } from '../../services/presetService';
+import { CloudPreset } from '@/features';
 
 interface PresetCardProps {
   preset: CloudPreset;
 }
 
-const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
+export const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
   return (
     <div className="preset-card">
       <div className="preset-image-container">
@@ -20,5 +20,3 @@ const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
     </div>
   );
 };
-
-export default PresetCard;

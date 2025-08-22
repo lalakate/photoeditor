@@ -1,17 +1,18 @@
 import React from 'react';
-import { CloudPreset, PresetService } from '../../services/presetService';
-import { useAppSelector } from '../../store/hooks';
-import UserAvatarInline from '../../components/UserAvatar/UserAvatarInline';
+import { CloudPreset, PresetService, selectUser } from '@/features';
+import { useAppSelector } from '@/app/store/hooks';
+import { analytics } from '@/app/firebase/firebaseConfig';
+import { getUsernameFromEmail } from '@/shared/utils';
+import { UserAvatarInline } from '../UserAvatar';
 import { logEvent } from 'firebase/analytics';
-import { analytics } from '../../firebase/firebaseConfig';
 import './preset-card-with-save.css';
 
 interface PresetCardProps {
   preset: CloudPreset;
 }
 
-const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
-  const currentUser = useAppSelector(state => state.auth.user);
+export const PresetCardWithSave: React.FC<PresetCardProps> = ({ preset }) => {
+  const currentUser = useAppSelector(selectUser);
   const isOwnPreset = currentUser && currentUser.uid === preset.userId;
 
   const handleSave = async () => {
@@ -29,8 +30,7 @@ const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
 
   const displayName = React.useMemo(() => {
     if (!preset.userName) return '';
-    const atIdx = preset.userName.indexOf('@');
-    return atIdx > 0 ? preset.userName.slice(0, atIdx) : preset.userName;
+    return getUsernameFromEmail(preset.userName);
   }, [preset.userName]);
 
   return (
@@ -67,5 +67,3 @@ const PresetCard: React.FC<PresetCardProps> = ({ preset }) => {
     </div>
   );
 };
-
-export default PresetCard;

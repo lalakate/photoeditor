@@ -1,17 +1,18 @@
-import { useAppSelector } from '../../../store/hooks';
-import { Link, useNavigate } from 'react-router-dom';
-import UserAvatar from '../../UserAvatar/UserAvatar';
-import { useAuth } from '../../../hooks/useAuth';
-import { analytics } from '../../../firebase/firebaseConfig';
+import { analytics } from '@/app/firebase/firebaseConfig';
+import { useAppSelector } from '@/app/store/hooks';
+import { selectIsAuthorized, selectUser, useAuth } from '@/features';
+import { getUsernameFromEmail } from '@/shared/utils';
 import { logEvent } from 'firebase/analytics';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { UserAvatar } from '../../UserAvatar';
 import './header.css';
 
 export const Header = () => {
-  const { isAuthorized, user, isRegistering } = useAppSelector(
-    state => state.auth
-  );
+  const isAuthorized = useAppSelector(selectIsAuthorized);
+  const user = useAppSelector(selectUser);
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     await logout();
@@ -24,13 +25,14 @@ export const Header = () => {
     <header className="header">
       <div className="header-content">
         <Link to="/">
-          <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="logo" className="logo" />
+          <img src="/logo.svg" alt="logo" className="logo" />
         </Link>
 
         {isAuthorized ? (
           <div className="header-user-content">
             <span className="user-greeting">
-              Welcome, {user?.displayName || user?.email?.split('@')[0]}!
+              Welcome,{' '}
+              {user?.displayName || getUsernameFromEmail(user?.email ?? '')}!
             </span>
             <UserAvatar />
             <button type="button" className="logout-btn" onClick={handleLogout}>
@@ -38,7 +40,14 @@ export const Header = () => {
             </button>
           </div>
         ) : (
-          <Link to="/auth" className="login-link">
+          <Link
+            to="/auth"
+            className={
+              location.pathname.startsWith('/auth')
+                ? 'login-link active'
+                : 'login-link'
+            }
+          >
             Log In
           </Link>
         )}

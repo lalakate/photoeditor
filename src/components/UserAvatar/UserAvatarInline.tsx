@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { getInitials } from './getInitials';
 import './user-avatar.css';
 
 interface UserAvatarInlineProps {
@@ -9,27 +10,17 @@ interface UserAvatarInlineProps {
   email?: string;
 }
 
-const UserAvatarInline: React.FC<UserAvatarInlineProps> = ({
+export const UserAvatarInline: React.FC<UserAvatarInlineProps> = ({
   userId,
   displayName,
   photoURL,
   email,
 }) => {
-  const getInitials = (displayName?: string, email?: string) => {
-    if (displayName) {
-      return displayName
-        .split(' ')
-        .map(name => name[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
-    }
-    if (email) {
-      return email[0].toUpperCase();
-    }
-    return 'U';
-  };
-  const initials = getInitials(displayName, email);
+  const initials = useMemo(
+    () => getInitials(displayName, email ?? null),
+    [displayName, email]
+  );
+
   return (
     <Link to={`/users/${userId}`} className="user-avatar-inline">
       {photoURL ? (
@@ -46,5 +37,3 @@ const UserAvatarInline: React.FC<UserAvatarInlineProps> = ({
     </Link>
   );
 };
-
-export default UserAvatarInline;

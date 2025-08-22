@@ -1,12 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '@/app/store/hooks';
+import { selectIsAuthorized } from '@/features';
 import './floating-home-btn.css';
-import { useAppSelector } from '../../../store/hooks';
 
-const FloatingHomeButton: React.FC = () => {
-  const { isAuthorized } = useAppSelector(state => state.auth);
-
+export const FloatingHomeButton: React.FC = () => {
+  const isAuthorized = useAppSelector(selectIsAuthorized);
   const navigate = useNavigate();
+
   return (
     <button
       className={`floating-home-btn ${!isAuthorized && 'hidden'}`}
@@ -29,5 +30,3 @@ const FloatingHomeButton: React.FC = () => {
     </button>
   );
 };
-
-export default FloatingHomeButton;

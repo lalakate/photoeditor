@@ -1,31 +1,44 @@
+const CANVAS_SIZE = 256;
+const GRID_SIZE = 32;
+const POINT_RADIUS = 6;
+const ACTIVE_POINT_COLOR = '#fff';
+const INACTIVE_POINT_COLOR = '#d62a55';
+const CURVE_COLOR = '#d62a55';
+const GRID_COLOR = '#444';
+const GRID_LINE_WIDTH = 0.5;
+const CURVE_LINE_WIDTH = 2;
+const POINT_STROKE_COLOR = '#000';
+const POINT_STROKE_WIDTH = 1;
+const NEUTRAL_COLOR = '#666';
+
 export type Point = {
   x: number;
   y: number;
 };
 
 export const drawGrid = (context: CanvasRenderingContext2D) => {
-  context.strokeStyle = '#444';
-  context.lineWidth = 0.5;
+  context.strokeStyle = GRID_COLOR;
+  context.lineWidth = GRID_LINE_WIDTH;
 
-  for (let i = 0; i <= 256; i += 32) {
+  for (let i = 0; i <= CANVAS_SIZE; i += GRID_SIZE) {
     context.beginPath();
     context.moveTo(0, i);
-    context.lineTo(256, i);
+    context.lineTo(CANVAS_SIZE, i);
     context.stroke();
   }
 
-  for (let i = 0; i <= 256; i += 32) {
+  for (let i = 0; i <= CANVAS_SIZE; i += GRID_SIZE) {
     context.beginPath();
     context.moveTo(i, 0);
-    context.lineTo(i, 256);
+    context.lineTo(i, CANVAS_SIZE);
     context.stroke();
   }
 
-  context.strokeStyle = '#666';
-  context.lineWidth = 1;
+  context.strokeStyle = NEUTRAL_COLOR;
+  context.lineWidth = GRID_LINE_WIDTH;
   context.beginPath();
   context.moveTo(0, 0);
-  context.lineTo(256, 256);
+  context.lineTo(CANVAS_SIZE, CANVAS_SIZE);
   context.stroke();
 };
 
@@ -35,11 +48,11 @@ export const drawCurve = (
 ) => {
   const sortedPoints = [...points].sort((a, b) => a.x - b.x);
 
-  context.strokeStyle = '#d62a55';
-  context.lineWidth = 2;
+  context.strokeStyle = CURVE_COLOR;
+  context.lineWidth = CURVE_LINE_WIDTH;
   context.beginPath();
 
-  if (sortedPoints.length >= 2) {
+  if (sortedPoints.length >= CURVE_LINE_WIDTH) {
     context.moveTo(sortedPoints[0].x, sortedPoints[0].y);
 
     for (let i = 0; i < sortedPoints.length - 1; i++) {
@@ -69,15 +82,16 @@ export const drawPoints = (
   activePoint: number | null
 ) => {
   points.forEach((point, index) => {
-    context.fillStyle = index === activePoint ? '#fff' : '##d62a55';
+    context.fillStyle =
+      index === activePoint ? ACTIVE_POINT_COLOR : INACTIVE_POINT_COLOR;
     context.beginPath();
-    context.arc(point.x, point.y, 6, 0, Math.PI * 2);
+    context.arc(point.x, point.y, POINT_RADIUS, 0, Math.PI * 2);
     context.fill();
 
-    context.strokeStyle = '#000';
-    context.lineWidth = 1;
+    context.strokeStyle = POINT_STROKE_COLOR;
+    context.lineWidth = POINT_STROKE_WIDTH;
     context.beginPath();
-    context.arc(point.x, point.y, 6, 0, Math.PI * 2);
+    context.arc(point.x, point.y, POINT_RADIUS, 0, Math.PI * 2);
     context.stroke();
   });
 };

@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import React, { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/app/store/hooks';
 import {
-  loadCloudPresets,
-  clearPresetsError,
-  saveCloudPreset,
   applyCloudPreset,
+  clearPresetsError,
   deleteCloudPreset,
-} from '../../store/slices/editorSlice';
-import './preset-manager.css';
+  loadCloudPresets,
+  saveCloudPreset,
+  selectActiveFilters,
+  selectCloudPresets,
+  selectCloudPresetsLoading,
+  selectIsAuthorized,
+  selectPresetsError,
+  selectUser,
+} from '@/features';
+import { analytics } from '@/app/firebase/firebaseConfig';
 import { logEvent } from 'firebase/analytics';
-import { analytics } from '../../firebase/firebaseConfig';
+import './preset-manager.css';
 
-const PresetManager: React.FC = () => {
+export const PresetManager: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { activeFilters, cloudPresets, presetsLoading, presetsError } =
-    useAppSelector(state => state.edit);
-  const { user, isAuthorized } = useAppSelector(state => state.auth);
+  const activeFilters = useAppSelector(selectActiveFilters);
+  const cloudPresets = useAppSelector(selectCloudPresets);
+  const presetsLoading = useAppSelector(selectCloudPresetsLoading);
+  const presetsError = useAppSelector(selectPresetsError);
+  const user = useAppSelector(selectUser);
+  const isAuthorized = useAppSelector(selectIsAuthorized);
   const [presetName, setPresetName] = useState('');
   const [showSaveForm, setShowSaveForm] = useState(false);
 
@@ -180,5 +189,3 @@ const PresetManager: React.FC = () => {
     </div>
   );
 };
-
-export default PresetManager;
