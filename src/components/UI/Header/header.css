@@ -46,6 +46,12 @@
   color: #d62a55;
 }
 
+.login-link.active {
+  background-color: white;
+  color: #d62a55;
+  cursor: default;
+}
+
 .logo {
   height: 70%;
   max-height: 50px;

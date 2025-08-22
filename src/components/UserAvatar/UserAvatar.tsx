@@ -1,31 +1,14 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../hooks/useAuth';
-import { useAppSelector } from '../../store/hooks';
-import './user-avatar.css';
-import { logEvent } from 'firebase/analytics';
-import { analytics } from '../../firebase/firebaseConfig';
+import React from 'react';
+import { useAppSelector } from '@/app/store/hooks';
+import { selectUser } from '@/features';
 import { Link } from 'react-router-dom';
+import { getInitials } from './getInitials';
+import './user-avatar.css';
 
-const UserAvatar: React.FC = () => {
-  const { logout } = useAuth();
-  const { user } = useAppSelector(state => state.auth);
+export const UserAvatar: React.FC = () => {
+  const user = useAppSelector(selectUser);
 
   if (!user) return null;
-
-  const getInitials = (displayName: string | null, email: string | null) => {
-    if (displayName) {
-      return displayName
-        .split(' ')
-        .map(name => name[0])
-        .join('')
-        .toUpperCase()
-        .slice(0, 2);
-    }
-    if (email) {
-      return email[0].toUpperCase();
-    }
-    return 'U';
-  };
 
   const avatarUrl = user.photoURL;
   const initials = getInitials(user.displayName, user.email);
@@ -47,5 +30,3 @@ const UserAvatar: React.FC = () => {
     </div>
   );
 };
-
-export default UserAvatar;

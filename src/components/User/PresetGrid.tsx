@@ -1,13 +1,13 @@
 import React from 'react';
-import PresetCard from '../Card/PresetCard';
+import { CloudPreset } from '@/features';
+import { PresetCard } from '../Card';
 import './preset-grid.css';
-import { CloudPreset } from '../../services/presetService';
 
 interface PresetGridProps {
   presets: CloudPreset[];
 }
 
-const PresetGrid: React.FC<PresetGridProps> = ({ presets }) => {
+export const PresetGrid: React.FC<PresetGridProps> = ({ presets }) => {
   return (
     <div className="preset-grid">
       {presets.map(preset => (
@@ -16,5 +16,3 @@ const PresetGrid: React.FC<PresetGridProps> = ({ presets }) => {
     </div>
   );
 };
-
-export default PresetGrid;
